@@ -4,6 +4,39 @@ A reference architecture for **cross-platform AI agent orchestration** — conne
 
 This project demonstrates how to build a unified AI agent that queries data across both platforms in a single conversation, with the agent intelligently routing questions to the right data source.
 
+## Prerequisites
+
+### Snowflake
+- Snowflake account with **ACCOUNTADMIN** role (or a role with CREATE DATABASE, CREATE AGENT, CREATE SEMANTIC VIEW privileges)
+- A warehouse (XS is sufficient) — the scripts use `DEMO_WH`
+- Cortex Agents enabled in your account (AI & ML > Agents should be visible in Snowsight)
+- Cross-region inference enabled for model access:
+  ```sql
+  ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
+  ```
+
+### AWS
+- AWS account with access to **us-east-1** region
+- AWS CLI configured (`aws configure`) with credentials that have permissions to:
+  - S3: CreateBucket, PutObject
+  - Bedrock: CreateKnowledgeBase, Retrieve
+  - Lambda: CreateFunction, UpdateFunctionCode
+  - API Gateway: CreateApi, CreateRoute
+  - Cognito: CreateUserPool, CreateUserPoolClient
+  - IAM: CreateRole, PutRolePolicy
+- Python 3.10+ with `boto3` installed
+- Amazon Bedrock model access enabled (Titan Embed Text v2 at minimum)
+
+### Local Development
+- Python 3.10+
+- Git
+- SnowSQL CLI (or use Snowsight SQL worksheets to run the `.sql` files)
+- `pip` for installing Python dependencies
+
+### Network
+- Snowflake account must be able to reach AWS API Gateway endpoint (no network policy blocking outbound to `*.execute-api.*.amazonaws.com`)
+- No VPN/firewall blocking Cognito hosted UI (`*.auth.*.amazoncognito.com`)
+
 ## What This Demonstrates
 
 | Integration Pattern | Implementation |
