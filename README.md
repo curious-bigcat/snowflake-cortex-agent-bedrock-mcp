@@ -17,6 +17,10 @@ This project demonstrates how to build a unified AI agent that queries data acro
 
 ## Architecture
 
+![Architecture Diagram](architecture.png)
+
+For detailed technical documentation including auth flows, MCP protocol details, security model, and latency characteristics, see [diagrams/architecture.md](diagrams/architecture.md).
+
 ```
          ┌─────────────────────────────────────────────────────────┐
          │        SNOWFLAKE CORTEX AGENT (Orchestrator)             │
